@@ -14,8 +14,10 @@ class HomePage extends GetView<AssistController> {
         itemBuilder: ((context, index) => ListTile(
               title: Text(
                 assists[index].name,
-                textAlign: TextAlign.justify,
               ),
+              selectedColor: Colors.red,
+              selected: controller.isSelected(index),
+              onTap: (() => controller.selectAssist(index)),
             )));
   }
 
@@ -27,35 +29,37 @@ class HomePage extends GetView<AssistController> {
       ),
       body: Container(
         constraints: const BoxConstraints.expand(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              children: const [
-                Expanded(
-                    child: Text(
-                  'Os serviços disponíveis são:',
-                  textAlign: TextAlign.center,
-                ))
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                    child: TextButton(
-                  onPressed: ((() => controller.getAssistList())),
-                  child: const Text('Recarregar'),
-                ))
-              ],
-            ),
-            controller.obx(
-              (state) => renderAssists(state ?? []),
-              onEmpty: const Text('Nenhum'),
-              onError: (error) => Text(error.toString()),
-            )
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                children: const [
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text(
+                        'Os serviços disponíveis são:',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              controller.obx(
+                (state) => renderAssists(state ?? []),
+                onEmpty: const Text('Nenhuma assistência disponível'),
+                onError: (error) => Text(error.toString()),
+              )
+            ],
+          ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: (() => controller.finshSelectAssists()),
+          child: const Icon(Icons.done)),
     );
   }
 }

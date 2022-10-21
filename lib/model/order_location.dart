@@ -2,41 +2,41 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class OrderLocation {
-  double lat;
-  double long;
-  DateTime dateTime;
+  double latitude;
+  double longitude;
+  DateTime datetime;
 
   OrderLocation({
-    required this.lat,
-    required this.long,
-    required this.dateTime,
+    required this.latitude,
+    required this.longitude,
+    required this.datetime,
   });
 
   OrderLocation copyWith({
-    double? lat,
-    double? long,
-    DateTime? dateTime,
+    double? latitude,
+    double? longitude,
+    DateTime? datetime,
   }) {
     return OrderLocation(
-      lat: lat ?? this.lat,
-      long: long ?? this.long,
-      dateTime: dateTime ?? this.dateTime,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+      datetime: datetime ?? this.datetime,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'lat': lat,
-      'long': long,
-      'dateTime': dateTime.millisecondsSinceEpoch,
+      'latitude': latitude,
+      'long': longitude,
+      'dateTime': datetime.millisecondsSinceEpoch,
     };
   }
 
   factory OrderLocation.fromMap(Map<String, dynamic> map) {
     return OrderLocation(
-      lat: map['lat'] as double,
-      long: map['long'] as double,
-      dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime'] as int),
+      latitude: map['latitude'] as double,
+      longitude: map['longitude'] as double,
+      datetime: DateTime.fromMillisecondsSinceEpoch(map['datetime'] as int),
     );
   }
 
@@ -47,15 +47,18 @@ class OrderLocation {
 
   @override
   String toString() =>
-      'OrderLocation(lat: $lat, long: $long, dateTime: $dateTime)';
+      'OrderLocation(latitude: $latitude, longitude: $longitude, datetime: $datetime)';
 
   @override
   bool operator ==(covariant OrderLocation other) {
     if (identical(this, other)) return true;
 
-    return other.lat == lat && other.long == long && other.dateTime == dateTime;
+    return other.latitude == latitude &&
+        other.longitude == longitude &&
+        other.datetime == datetime;
   }
 
   @override
-  int get hashCode => lat.hashCode ^ long.hashCode ^ dateTime.hashCode;
+  int get hashCode =>
+      latitude.hashCode ^ longitude.hashCode ^ datetime.hashCode;
 }

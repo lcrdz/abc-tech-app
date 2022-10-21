@@ -22,7 +22,7 @@ class Order {
       'operatorId': operatorId,
       'assists': assists,
       'start': start?.toMap(),
-      'endt': end?.toMap()
+      'end': end?.toMap()
     };
   }
 
